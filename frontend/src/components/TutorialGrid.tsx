@@ -1,10 +1,79 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { tutorials } from '../data/stupid-data';
 import { Play, Clock, Star, Users } from 'lucide-react';
 
-const TutorialGrid: React.FC = () => {
+interface TutorialGridProps {
+  onTutorialSelect: (tutorial: any) => void;
+}
 
+const TutorialGrid: React.FC<TutorialGridProps> = ({ onTutorialSelect }) => {
+  const tutorials = [
+    {
+      id: 1,
+      title: "Comment ouvrir une porte",
+      description: "Technique révolutionnaire pour ne pas casser la poignée",
+      duration: "15 min",
+      difficulty: "Expert",
+      rating: 4.9,
+      students: 2847,
+      image: "https://images.pexels.com/photos/277574/pexels-photo-277574.jpeg?auto=compress&cs=tinysrgb&w=800",
+      category: "Manipulation d'objets"
+    },
+    {
+      id: 2,
+      title: "L'art de rater son CV",
+      description: "Maximisez vos chances de refus avec ces techniques éprouvées",
+      duration: "22 min",
+      difficulty: "Débutant",
+      rating: 4.8,
+      students: 5621,
+      image: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpg?auto=compress&cs=tinysrgb&w=800",
+      category: "Carrière professionnelle"
+    },
+    {
+      id: 3,
+      title: "S'asseoir sur une chaise",
+      description: "Guide complet étape par étape pour débutants",
+      duration: "8 min",
+      difficulty: "Novice",
+      rating: 5.0,
+      students: 12453,
+      image: "https://images.pexels.com/photos/586000/pexels-photo-586000.jpg?auto=compress&cs=tinysrgb&w=800",
+      category: "Bases de la vie"
+    },
+    {
+      id: 4,
+      title: "Faire des noeuds impossibles",
+      description: "Transformez n'importe quel câble en puzzle insoluble",
+      duration: "18 min",
+      difficulty: "Maître",
+      rating: 4.7,
+      students: 892,
+      image: "https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpg?auto=compress&cs=tinysrgb&w=800",
+      category: "Arts appliqués"
+    },
+    {
+      id: 5,
+      title: "Perdre ses clés efficacement",
+      description: "Méthodes scientifiques pour égarer vos affaires",
+      duration: "12 min",
+      difficulty: "Intermédiaire",
+      rating: 4.6,
+      students: 3245,
+      image: "https://images.pexels.com/photos/1698528/pexels-photo-1698528.jpg?auto=compress&cs=tinysrgb&w=800",
+      category: "Organisation personnelle"
+    },
+    {
+      id: 6,
+      title: "Faire semblant de comprendre",
+      description: "L'art de hocher la tête de manière convaincante",
+      duration: "25 min",
+      difficulty: "Expert",
+      rating: 4.9,
+      students: 7892,
+      image: "https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpg?auto=compress&cs=tinysrgb&w=800",
+      category: "Communication sociale"
+    }
+  ];
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -29,15 +98,10 @@ const TutorialGrid: React.FC = () => {
 
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-12">
           {tutorials.map((tutorial, index) => (
-            <Link
+            <div
               key={tutorial.id}
-<<<<<<< HEAD
-              to={`/tutorial/${tutorial.id}`}
-              className={`group relative bg-gray-800/50 rounded-2xl overflow-hidden hover:bg-gray-800/70 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10 cursor-pointer animate-fadeInUp delay-${index * 100}`}
-=======
               className={`group relative bg-gray-800/40 border border-[#FF9900]/10 rounded-2xl overflow-hidden hover:bg-gray-800/70 transition-all duration-500 hover:rotate-1 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#FF9900]/20 cursor-pointer animate-fadeInUp delay-${index * 100}`}
               onClick={() => onTutorialSelect(tutorial)}
->>>>>>> home
             >
               <div className="relative h-52 overflow-hidden">
                 <img
@@ -83,14 +147,7 @@ const TutorialGrid: React.FC = () => {
                   {tutorial.difficulty}
                 </div>
               </div>
-<<<<<<< HEAD
-
-              {/* Hover Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-            </Link>
-=======
             </div>
->>>>>>> home
           ))}
         </div>
       </div>
