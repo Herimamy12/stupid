@@ -43,40 +43,107 @@ const TutorialPage: React.FC = () => {
     }
   ];
 
-  const tutorial = tutorials.find(t => t.id === parseInt(id || '1')) || tutorials[0];
-
   const steps = [
-    {
-      step: 1,
-      title: "Préparation mentale",
-      description: "Convainquez-vous que vous allez réussir (c'est la première erreur)",
-      duration: "2 min"
-    },
-    {
-      step: 2,
-      title: "Approche de l'objet",
-      description: "Regardez la porte avec confiance excessive",
-      duration: "1 min"
-    },
-    {
-      step: 3,
-      title: "Tentative d'ouverture",
-      description: "Tirez au lieu de pousser, ou l'inverse selon la logique",
-      duration: "3 min"
-    },
-    {
-      step: 4,
-      title: "Frustration optimale",
-      description: "Secouez la poignée avec véhémence",
-      duration: "2 min"
-    },
-    {
-      step: 5,
-      title: "Demande d'aide",
-      description: "Acceptez finalement que vous avez échoué",
-      duration: "5 min"
-    }
+    [
+      {
+        step: 1,
+        title: "Préparation mentale",
+        description: "Convainquez-vous que vous allez réussir (c'est la première erreur)",
+        duration: "2 min"
+      },
+      {
+        step: 2,
+        title: "Approche de l'objet",
+        description: "Regardez la porte avec confiance excessive",
+        duration: "1 min"
+      },
+      {
+        step: 3,
+        title: "Tentative d'ouverture",
+        description: "Tirez au lieu de pousser, ou l'inverse selon la logique",
+        duration: "3 min"
+      },
+      {
+        step: 4,
+        title: "Frustration optimale",
+        description: "Secouez la poignée avec véhémence",
+        duration: "2 min"
+      },
+      {
+        step: 5,
+        title: "Demande d'aide",
+        description: "Acceptez finalement que vous avez échoué",
+        duration: "5 min"
+      }
+    ],
+    [
+      {
+        step: 1,
+        title: "Préparation du CV",
+        description: "Utilisez une police illisible comme Comic Sans",
+        duration: "3 min"
+      },
+      {
+        step: 2,
+        title: "Rédaction confuse",
+        description: "Ajoutez des informations inutiles et contradictoires",
+        duration: "4 min"
+      },
+      {
+        step: 3,
+        title: "Mauvais formatage",
+        description: "Ignorez les conventions de mise en page",
+        duration: "3 min"
+      },
+      {
+        step: 4,
+        title: "Erreurs volontaires",
+        description: "Incluez des fautes d'orthographe pour plus d'authenticité",
+        duration: "2 min"
+      },
+      {
+        step: 5,
+        title: "Soumission hasardeuse",
+        description: "Envoyez le CV au mauvais recruteur",
+        duration: "5 min"
+      }
+    ],
+    [
+      {
+        step: 1,
+        title: "Observation de la chaise",
+        description: "Examinez la chaise avec suspicion",
+        duration: "1 min"
+      },
+      {
+        step: 2,
+        title: "Positionnement stratégique",
+        description: "Placez-vous à un angle improbable",
+        duration: "2 min"
+      },
+      {
+        step: 3,
+        title: "Tentative d'assise",
+        description: "Ratez la chaise intentionnellement",
+        duration: "2 min"
+      },
+      {
+        step: 4,
+        title: "Récupération",
+        description: "Relevez-vous avec dignité feinte",
+        duration: "1 min"
+      },
+      {
+        step: 5,
+        title: "Réévaluation",
+        description: "Considérez un tabouret à la place",
+        duration: "2 min"
+      }
+    ]
   ];
+
+  const tutorial = tutorials.find(t => t.id === parseInt(id || '1')) || tutorials[0];
+  const tutorialSteps = steps[tutorial.id - 1] || steps[0]; // Select steps based on tutorial id
 
   return (
     <div className="pt-20 min-h-screen">
@@ -162,7 +229,7 @@ const TutorialPage: React.FC = () => {
           </h2>
 
           <div className="space-y-8">
-            {steps.map((step, index) => (
+            {tutorialSteps.map((step, index) => (
               <div
                 key={step.step}
                 className={`flex items-start space-x-6 p-8 bg-gray-800/50 rounded-2xl hover:bg-gray-800/70 transition-all duration-300 animate-fadeInUp delay-${index * 100}`}
