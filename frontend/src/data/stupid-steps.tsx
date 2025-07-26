@@ -1,7 +1,7 @@
 export const steps = [
   // Cours 1 : Comment ouvrir une porte
   [
-    { step: 1, title: "Préparation mentale", description: "Convainquez-vous que vous allez réussir (c'est la première erreur)", duration: "2 min" }
+    { step: 1, title: "Préparation mentale", description: "Convainquez-vous que vous allez réussir (c'est la première erreur)", duration: "2 min" },
     { step: 2, title: "Approche de l'objet", description: "Regardez la porte avec confiance excessive", duration: "1 min" },
     { step: 3, title: "Tentative d'ouverture", description: "Tirez au lieu de pousser, ou l'inverse selon la logique", duration: "3 min" },
     { step: 4, title: "Frustration optimale", description: "Secouez la poignée avec véhémence", duration: "2 min" },
