@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Play, Clock, Star, Users, Download, Share } from 'lucide-react';
 import { tutorials } from '../data/stupid-data';
 import { steps } from '../data/stupid-steps';
+import { Link } from 'react-router-dom';
 
 const TutorialPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -54,10 +55,12 @@ const TutorialPage: React.FC = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center space-x-4">
-                <button className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition-transform duration-300 flex items-center space-x-2">
-                  <Play size={20} fill="currentColor" />
-                  <span>Commencer l'échec</span>
-                </button>
+
+				<Link to={`/tutorial/${tutorial.id}/start`} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition-transform duration-300 flex items-center space-x-2">
+				<Play size={20} fill="currentColor" />
+				<span>Commencer l'échec</span>
+				</Link>
+
                 <button className="border border-orange-400 text-orange-400 px-6 py-4 rounded-full hover:bg-orange-400/10 transition-colors duration-300 flex items-center space-x-2">
                   <Download size={20} />
                   <span>Télécharger</span>

@@ -6,6 +6,7 @@ import AllTutosPage from './pages/AllTutosPage';
 import TutorialPage from './components/TutorialPage';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
+import TutorialSlideshow from './components/TutorialSlideShow';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/alltutos" element={<AllTutosPage />} />
           <Route path="/tutorial/:id" element={<TutorialPage />} />
           <Route path="/chatbot" element={<div className="pt-20 min-h-screen flex items-center justify-center"><h1 className="text-4xl font-orbitron text-orange-500">Chatbot Page Coming Soon</h1></div>} />
+		  <Route path="/tutorial/:id/start" element={<TutorialSlideshow />} />
         </Routes>
         
         <Footer />
