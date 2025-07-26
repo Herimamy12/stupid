@@ -1,11 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Play, Clock, Star, Users } from 'lucide-react';
 
-interface TutorialGridProps {
-  onTutorialSelect: (tutorial: any) => void;
-}
-
-const TutorialGrid: React.FC<TutorialGridProps> = ({ onTutorialSelect }) => {
+const TutorialGrid: React.FC = () => {
   const tutorials = [
     {
       id: 1,
@@ -98,10 +95,10 @@ const TutorialGrid: React.FC<TutorialGridProps> = ({ onTutorialSelect }) => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {tutorials.map((tutorial, index) => (
-            <div
+            <Link
               key={tutorial.id}
+              to={`/tutorial/${tutorial.id}`}
               className={`group relative bg-gray-800/50 rounded-2xl overflow-hidden hover:bg-gray-800/70 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10 cursor-pointer animate-fadeInUp delay-${index * 100}`}
-              onClick={() => onTutorialSelect(tutorial)}
             >
               {/* Image Container */}
               <div className="relative h-48 overflow-hidden">
@@ -160,7 +157,7 @@ const TutorialGrid: React.FC<TutorialGridProps> = ({ onTutorialSelect }) => {
 
               {/* Hover Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

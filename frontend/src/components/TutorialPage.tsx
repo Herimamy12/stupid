@@ -1,12 +1,50 @@
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Play, Clock, Star, Users, Download, Share } from 'lucide-react';
 
-interface TutorialPageProps {
-  tutorial: any;
-  onBack: () => void;
-}
+const TutorialPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
-const TutorialPage: React.FC<TutorialPageProps> = ({ tutorial, onBack }) => {
+  // Mock tutorial data - in a real app, you'd fetch this based on the ID
+  const tutorials = [
+    {
+      id: 1,
+      title: "Comment ouvrir une porte",
+      description: "Technique révolutionnaire pour ne pas casser la poignée",
+      duration: "15 min",
+      difficulty: "Expert",
+      rating: 4.9,
+      students: 2847,
+      image: "https://images.pexels.com/photos/277574/pexels-photo-277574.jpeg?auto=compress&cs=tinysrgb&w=800",
+      category: "Manipulation d'objets"
+    },
+    {
+      id: 2,
+      title: "L'art de rater son CV",
+      description: "Maximisez vos chances de refus avec ces techniques éprouvées",
+      duration: "22 min",
+      difficulty: "Débutant",
+      rating: 4.8,
+      students: 5621,
+      image: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpg?auto=compress&cs=tinysrgb&w=800",
+      category: "Carrière professionnelle"
+    },
+    {
+      id: 3,
+      title: "S'asseoir sur une chaise",
+      description: "Guide complet étape par étape pour débutants",
+      duration: "8 min",
+      difficulty: "Novice",
+      rating: 5.0,
+      students: 12453,
+      image: "https://images.pexels.com/photos/586000/pexels-photo-586000.jpg?auto=compress&cs=tinysrgb&w=800",
+      category: "Bases de la vie"
+    }
+  ];
+
+  const tutorial = tutorials.find(t => t.id === parseInt(id || '1')) || tutorials[0];
+
   const steps = [
     {
       step: 1,
@@ -46,11 +84,11 @@ const TutorialPage: React.FC<TutorialPageProps> = ({ tutorial, onBack }) => {
       <div className="bg-gradient-to-r from-gray-900 via-black to-gray-900 py-8">
         <div className="container mx-auto px-6">
           <button
-            onClick={onBack}
+            onClick={() => navigate(-1)}
             className="flex items-center space-x-2 text-orange-400 hover:text-orange-300 mb-6 transition-colors group"
           >
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-            <span>Retour au catalogue</span>
+            <span>Retour</span>
           </button>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

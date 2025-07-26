@@ -1,45 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Navigation from './components/Navigation';
-import TutorialGrid from './components/TutorialGrid';
+import HomePage from './pages/HomePage';
+import AllTutosPage from './pages/AllTutosPage';
 import TutorialPage from './components/TutorialPage';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [selectedTutorial, setSelectedTutorial] = useState(null);
-
-  const handleNavigate = (page: string, tutorial?: any) => {
-    setCurrentPage(page);
-    if (tutorial) {
-      setSelectedTutorial(tutorial);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-900 text-white font-inter overflow-x-hidden">
-      <Header onNavigate={handleNavigate} currentPage={currentPage} />
-      
-      {currentPage === 'home' && (
-        <>
-          <Hero />
-          <Navigation onNavigate={handleNavigate} />
-          <TutorialGrid onTutorialSelect={(tutorial) => handleNavigate('tutorial', tutorial)} />
-        </>
-      )}
-      
-      {currentPage === 'tutorial' && selectedTutorial && (
-        <TutorialPage 
-          tutorial={selectedTutorial} 
-          onBack={() => handleNavigate('home')} 
-        />
-      )}
-      
-      <Footer />
-      <Chatbot />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-900 text-white font-inter overflow-x-hidden">
+        <Header />
+        
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/alltutos" element={<AllTutosPage />} />
+          <Route path="/tutorial/:id" element={<TutorialPage />} />
+          <Route path="/chatbot" element={<div className="pt-20 min-h-screen flex items-center justify-center"><h1 className="text-4xl font-orbitron text-orange-500">Chatbot Page Coming Soon</h1></div>} />
+        </Routes>
+        
+        <Footer />
+        <Chatbot />
+      </div>
+    </Router>
   );
 }
 

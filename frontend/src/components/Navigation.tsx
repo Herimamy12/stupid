@@ -1,35 +1,36 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
-interface NavigationProps {
-  onNavigate: (page: string) => void;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
+const Navigation: React.FC = () => {
   const sections = [
     {
       title: "Comment ouvrir une porte sans casser la poignée",
       subtitle: "Technique avancée de manipulation d'objet",
       color: "from-orange-500 to-red-500",
-      delay: "delay-100"
+      delay: "delay-100",
+      link: "/tutorial/1"
     },
     {
       title: "L'art de rater son CV",
       subtitle: "Maximiser vos chances de refus",
       color: "from-red-500 to-pink-500",
-      delay: "delay-200"
+      delay: "delay-200",
+      link: "/tutorial/2"
     },
     {
       title: "S'asseoir sur une chaise, étape par étape",
       subtitle: "Guide complet pour débutants",
       color: "from-pink-500 to-purple-500",
-      delay: "delay-300"
+      delay: "delay-300",
+      link: "/tutorial/3"
     },
     {
       title: "Chatbot Absurdistan",
       subtitle: "IA spécialisée dans l'inutile",
       color: "from-purple-500 to-orange-500",
-      delay: "delay-400"
+      delay: "delay-400",
+      link: "/chatbot"
     }
   ];
 
@@ -42,10 +43,10 @@ const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sections.map((section, index) => (
-            <div
+            <Link
               key={index}
+              to={section.link}
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${section.color} p-[1px] hover:scale-105 transition-all duration-500 ${section.delay} animate-fadeInUp cursor-pointer`}
-              onClick={() => onNavigate('tutorial')}
             >
               <div className="relative bg-gray-900 rounded-2xl p-8 h-full hover:bg-gray-800/90 transition-all duration-300">
                 <div className="flex items-center justify-between">
@@ -66,7 +67,7 @@ const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
                 {/* Hover Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
