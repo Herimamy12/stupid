@@ -1,14 +1,12 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { Home, Book, MessageCircle } from 'lucide-react';
 
-const Header: React.FC = () => {
-  const location = useLocation();
+interface HeaderProps {
+  onNavigate: (page: string) => void;
+  currentPage: string;
+}
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
-
+const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b"
@@ -16,13 +14,8 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-6 py-4">
         <nav className="flex items-center justify-between">
-<<<<<<< HEAD
-          <Link 
-            to="/"
-=======
           <div
             onClick={() => onNavigate('home')}
->>>>>>> home
             className="flex items-center space-x-3 cursor-pointer group"
           >
             <div
@@ -41,15 +34,6 @@ const Header: React.FC = () => {
             >
               Tutos Absurdes
             </h1>
-<<<<<<< HEAD
-          </Link>
-          
-          <div className="flex items-center space-x-6">
-            <Link
-              to="/"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-orange-500/10 hover:scale-105 ${
-                isActive('/') ? 'text-orange-500' : 'text-gray-300 hover:text-orange-400'
-=======
           </div>
 
           <div className="flex items-center space-x-6">
@@ -59,7 +43,6 @@ const Header: React.FC = () => {
                 currentPage === 'home'
                   ? ''
                   : 'text-gray-300'
->>>>>>> home
               }`}
               style={{
                 backgroundColor: currentPage === 'home' ? 'transparent' : 'transparent',
@@ -78,23 +61,6 @@ const Header: React.FC = () => {
             >
               <Home size={20} />
               <span className="hidden md:inline">Accueil</span>
-<<<<<<< HEAD
-            </Link>
-            <Link
-              to="/alltutos"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-orange-500/10 hover:scale-105 ${
-                isActive('/alltutos') ? 'text-orange-500' : 'text-gray-300 hover:text-orange-400'
-              }`}
-            >
-              <Book size={20} />
-              <span className="hidden md:inline">Tous les tutos</span>
-            </Link>
-            <Link
-              to="/chatbot"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-orange-500/10 hover:scale-105 ${
-                isActive('/chatbot') ? 'text-orange-500' : 'text-gray-300 hover:text-orange-400'
-              }`}
-=======
             </button>
 
             <button
@@ -122,11 +88,10 @@ const Header: React.FC = () => {
                 (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
                 (e.currentTarget as HTMLElement).style.color = '#D1D5DB';
               }}
->>>>>>> home
             >
               <MessageCircle size={20} />
               <span className="hidden md:inline">Chatbot</span>
-            </Link>
+            </button>
           </div>
         </nav>
       </div>
