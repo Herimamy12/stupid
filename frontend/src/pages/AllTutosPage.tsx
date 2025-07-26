@@ -1,109 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Clock, Star, Users, Search, Filter } from 'lucide-react';
+import { tutorials } from '../data/stupid-data';
+
 
 const AllTutosPage: React.FC = () => {
-  const tutorials = [
-    {
-      id: 1,
-      title: "Comment ouvrir une porte",
-      description: "Technique révolutionnaire pour ne pas casser la poignée",
-      duration: "15 min",
-      difficulty: "Expert",
-      rating: 4.9,
-      students: 2847,
-      image: "https://images.pexels.com/photos/277574/pexels-photo-277574.jpeg?auto=compress&cs=tinysrgb&w=800",
-      category: "Manipulation d'objets"
-    },
-    {
-      id: 2,
-      title: "L'art de rater son CV",
-      description: "Maximisez vos chances de refus avec ces techniques éprouvées",
-      duration: "22 min",
-      difficulty: "Débutant",
-      rating: 4.8,
-      students: 5621,
-      image: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Carrière professionnelle"
-    },
-    {
-      id: 3,
-      title: "S'asseoir sur une chaise",
-      description: "Guide complet étape par étape pour débutants",
-      duration: "8 min",
-      difficulty: "Novice",
-      rating: 5.0,
-      students: 12453,
-      image: "https://images.pexels.com/photos/586000/pexels-photo-586000.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Bases de la vie"
-    },
-    {
-      id: 4,
-      title: "Faire des noeuds impossibles",
-      description: "Transformez n'importe quel câble en puzzle insoluble",
-      duration: "18 min",
-      difficulty: "Maître",
-      rating: 4.7,
-      students: 892,
-      image: "https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Arts appliqués"
-    },
-    {
-      id: 5,
-      title: "Perdre ses clés efficacement",
-      description: "Méthodes scientifiques pour égarer vos affaires",
-      duration: "12 min",
-      difficulty: "Intermédiaire",
-      rating: 4.6,
-      students: 3245,
-      image: "https://images.pexels.com/photos/1698528/pexels-photo-1698528.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Organisation personnelle"
-    },
-    {
-      id: 6,
-      title: "Faire semblant de comprendre",
-      description: "L'art de hocher la tête de manière convaincante",
-      duration: "25 min",
-      difficulty: "Expert",
-      rating: 4.9,
-      students: 7892,
-      image: "https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Communication sociale"
-    },
-    {
-      id: 7,
-      title: "Rater ses pâtes parfaitement",
-      description: "De l'eau froide aux pâtes collantes, maîtrisez l'art culinaire de l'échec",
-      duration: "20 min",
-      difficulty: "Intermédiaire",
-      rating: 4.5,
-      students: 4521,
-      image: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Cuisine catastrophique"
-    },
-    {
-      id: 8,
-      title: "Se perdre avec un GPS",
-      description: "Comment ignorer efficacement la technologie moderne",
-      duration: "30 min",
-      difficulty: "Expert",
-      rating: 4.8,
-      students: 2156,
-      image: "https://images.pexels.com/photos/1252890/pexels-photo-1252890.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Navigation alternative"
-    },
-    {
-      id: 9,
-      title: "Assembler un meuble IKEA à l'envers",
-      description: "L'art de créer des sculptures abstraites involontaires",
-      duration: "45 min",
-      difficulty: "Maître",
-      rating: 4.9,
-      students: 1834,
-      image: "https://images.pexels.com/photos/6585751/pexels-photo-6585751.jpg?auto=compress&cs=tinysrgb&w=800",
-      category: "Bricolage créatif"
-    }
-  ];
+  
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
