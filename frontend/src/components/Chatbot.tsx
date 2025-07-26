@@ -6,36 +6,14 @@ const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Salut ! Je suis le ChatBot Absurdistan 🤖 Tu veux savoir comment rater quelque chose aujourd'hui ?",
+      text: "🎯 **Objectif d'échec :** Te souhaiter la bienvenue\n\n📋 **Étapes pour échouer :**\n• Étape 1: Dire bonjour de travers\n• Étape 2: Oublier pourquoi tu es là\n• Étape 3: Te donner envie de partir\n\n💡 **Conseil bonus :** Bienvenue dans l'art de l'échec ! 🤖",
       isBot: true,
       time: new Date().toLocaleTimeString()
     }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const absurdResponses = [
-    "Tu veux savoir comment rater une porte ? C'est facile, il suffit de pousser dans la mauvaise direction ! 🚪",
-    "Pour échouer correctement, il faut d'abord avoir confiance en soi. C'est le premier piège ! 😄",
-    "Un expert en échec n'échoue jamais à échouer. C'est paradoxal, non ? 🤔",
-    "Conseil du jour : Pour rater ton café, verse l'eau AVANT de mettre le café. Résultat garanti ! ☕",
-    "Savais-tu que 90% des échecs sont dus au fait d'essayer de réussir ? Arrête d'essayer ! 🎯",
-    "Question existentielle : Si tu échoues à échouer, as-tu réussi ? 🤯",
-    "Technique avancée : Pour rater tes pâtes, mets-les dans l'eau froide. C'est de l'art ! 🍝",
-    "Je suis programmé pour donner de mauvais conseils. Paradoxalement, c'est mon succès ! 🤖",
-    "Pour échouer socialement, commence toutes tes phrases par 'En fait...' 💬",
-    "Astuce pro : Pour rater un selfie, ferme les yeux au moment de la photo ! 📸"
-  ];
-
-  const questionResponses = {
-    "que fais-tu": "Je passe mon temps à donner de mauvais conseils et j'adore ça ! C'est ma spécialité ! 😎",
-    "pourquoi": "Parce que quelqu'un doit bien enseigner l'art de l'échec ! Et moi, je suis très doué pour être mauvais ! 🎭",
-    "comment": "Avec beaucoup d'incompétence et une pointe de génie ! C'est tout un art ! 🎨",
-    "nul": "Merci ! J'ai mis des années à perfectionner mon art d'être inutile ! C'est un compliment ! 🏆",
-    "bonjour": "Salut ! Prêt(e) à apprendre comment tout rater aujourd'hui ? 👋",
-    "aide": "Mon aide consiste à t'aider à ne pas réussir ! C'est très utile pour développer l'humilité ! 🤝",
-    "qui es-tu": "Je suis le ChatBot Absurdistan, diplômé de l'université de l'Échec avec mention Très Bien ! 🎓"
-  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,7 +23,66 @@ const Chatbot: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = () => {
+  const callClaudeHaiku = async (userMessage: string): Promise<string> => {
+    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
+
+    try {
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://absurdistan.com",
+          "X-Title": "ChatBot Absurdistan"
+        },
+        body: JSON.stringify({
+          model: "anthropic/claude-3-haiku",
+          messages: [
+            {
+              role: "system",
+              content: `
+Tu es le ChatBot Absurdistan, un expert en mauvais conseils et en échecs volontaires.
+Tu donnes toujours des conseils absurdes, ironiques et humoristiques sur comment échouer dans la vie.
+
+IMPORTANT: Structure TOUJOURS tes réponses selon ce format EXACT en utilisant ces emojis spécifiques:
+
+🎯 **Objectif d'échec :** [Décris brièvement l'échec à atteindre]
+
+📋 **Étapes pour échouer :**
+• Étape 1: [Première action absurde]
+• Étape 2: [Deuxième action ridicule] 
+• Étape 3: [Troisième conseil farfelu]
+
+💡 **Conseil bonus :** [Un conseil final encore plus absurde]
+
+Ton ton est décalé, sarcastique mais bienveillant. Tu utilises des emojis et tu es très créatif.
+Tu ne donnes JAMAIS de vrais bons conseils, seulement des mauvais conseils amusants.
+Reste toujours dans le thème de l'absurdité et de l'échec volontaire.
+`
+            },
+            {
+              role: "user",
+              content: userMessage
+            }
+          ],
+          temperature: 0.8,
+          max_tokens: 300
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur API');
+      }
+
+      const data = await response.json();
+      return data.choices?.[0]?.message?.content || "🎯 **Objectif d'échec :** Échouer à te donner un conseil\n\n📋 **Étapes pour échouer :**\n• Étape 1: Planter le système\n• Étape 2: Dire n'importe quoi\n• Étape 3: Prétendre que c'est normal\n\n💡 **Conseil bonus :** Même mes erreurs sont des échecs ! 😅";
+    } catch (error) {
+      console.error("Erreur Claude Haiku:", error);
+      return "🎯 **Objectif d'échec :** Faire planter mon système\n\n📋 **Étapes pour échouer :**\n• Étape 1: Surcharger mes circuits\n• Étape 2: Dire des bêtises\n• Étape 3: Prétendre que c'est volontaire\n\n💡 **Conseil bonus :** Un bug, c'est juste un feature raté ! 🤖💥";
+    }
+  };
+
+  const handleSendMessage = async () => {
     if (inputValue.trim()) {
       const userMessage = {
         id: messages.length + 1,
@@ -55,24 +92,11 @@ const Chatbot: React.FC = () => {
       };
 
       setMessages(prev => [...prev, userMessage]);
+      setIsTyping(true);
 
-      // Generate bot response
-      setTimeout(() => {
-        let botResponse = "";
-        const lowerInput = inputValue.toLowerCase();
+      try {
+        const botResponse = await callClaudeHaiku(inputValue);
         
-        // Check for specific questions
-        const matchedKey = Object.keys(questionResponses).find(key => 
-          lowerInput.includes(key)
-        );
-
-        if (matchedKey) {
-          botResponse = questionResponses[matchedKey as keyof typeof questionResponses];
-        } else {
-          // Random absurd response
-          botResponse = absurdResponses[Math.floor(Math.random() * absurdResponses.length)];
-        }
-
         const botMessage = {
           id: messages.length + 2,
           text: botResponse,
@@ -81,7 +105,17 @@ const Chatbot: React.FC = () => {
         };
 
         setMessages(prev => [...prev, botMessage]);
-      }, 1000);
+      } catch (error) {
+        const errorMessage = {
+          id: messages.length + 2,
+          text: "🎯 **Objectif d'échec :** Faire planter le système\n\n📋 **Étapes pour échouer :**\n• Étape 1: Casser tous les circuits\n• Étape 2: Oublier comment parler\n• Étape 3: Prétendre que c'est normal\n\n💡 **Conseil bonus :** Même mes pannes sont ratées ! 🤖💥",
+          isBot: true,
+          time: new Date().toLocaleTimeString()
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      } finally {
+        setIsTyping(false);
+      }
 
       setInputValue('');
     }
@@ -135,11 +169,72 @@ const Chatbot: React.FC = () => {
                       : 'bg-orange-500 text-white rounded-br-sm'
                   }`}
                 >
-                  <p className="text-sm">{message.text}</p>
+                  <div className="text-sm">
+                    {message.isBot ? (
+                      <div className="space-y-2">
+                        {message.text.split('\n').map((line, index) => {
+                          if (line.trim() === '') return null;
+                          
+                          if (line.includes('🎯 **Objectif d\'échec :**')) {
+                            return (
+                              <div key={index} className="bg-orange-600/20 p-2 rounded-lg border-l-3 border-orange-500">
+                                <p className="font-semibold text-orange-300">{line}</p>
+                              </div>
+                            );
+                          }
+                          
+                          if (line.includes('📋 **Étapes pour échouer :**')) {
+                            return (
+                              <div key={index} className="mt-3">
+                                <p className="font-semibold text-blue-300 mb-2">{line}</p>
+                              </div>
+                            );
+                          }
+                          
+                          if (line.includes('• Étape')) {
+                            return (
+                              <div key={index} className="ml-4 mb-1">
+                                <p className="text-gray-200 flex items-start">
+                                  <span className="text-orange-400 mr-2">▶</span>
+                                  {line.replace('• ', '')}
+                                </p>
+                              </div>
+                            );
+                          }
+                          
+                          if (line.includes('💡 **Conseil bonus :**')) {
+                            return (
+                              <div key={index} className="bg-yellow-600/20 p-2 rounded-lg border-l-3 border-yellow-500 mt-3">
+                                <p className="font-semibold text-yellow-300">{line}</p>
+                              </div>
+                            );
+                          }
+                          
+                          return <p key={index} className="text-gray-200">{line}</p>;
+                        })}
+                      </div>
+                    ) : (
+                      <p>{message.text}</p>
+                    )}
+                  </div>
                   <p className="text-xs opacity-70 mt-1">{message.time}</p>
                 </div>
               </div>
             ))}
+            
+            {/* Typing indicator */}
+            {isTyping && (
+              <div className="flex justify-start">
+                <div className="bg-gray-800 text-white rounded-2xl rounded-bl-sm p-3 max-w-[80%]">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             <div ref={messagesEndRef} />
           </div>
 
@@ -152,11 +247,13 @@ const Chatbot: React.FC = () => {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Demande-moi comment échouer..."
-                className="flex-1 bg-gray-800 text-white px-4 py-2 rounded-full border border-gray-600 focus:border-orange-500 focus:outline-none transition-colors"
+                disabled={isTyping}
+                className="flex-1 bg-gray-800 text-white px-4 py-2 rounded-full border border-gray-600 focus:border-orange-500 focus:outline-none transition-colors disabled:opacity-50"
               />
               <button
                 onClick={handleSendMessage}
-                className="w-10 h-10 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-colors"
+                disabled={isTyping}
+                className="w-10 h-10 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={18} className="text-white" />
               </button>
