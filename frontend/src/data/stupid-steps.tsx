@@ -19,11 +19,11 @@ export const steps = [
 
   // Cours 3 : S'asseoir sur une chaise
   [
-    { step: 1, title: "Observation de la chaise", description: "Examinez la chaise avec suspicion", duration: "1 min" },
-    { step: 2, title: "Positionnement stratégique", description: "Placez-vous à un angle improbable", duration: "2 min" },
-    { step: 3, title: "Tentative d'assise", description: "Ratez la chaise intentionnellement", duration: "2 min" },
-    { step: 4, title: "Récupération", description: "Relevez-vous avec dignité feinte", duration: "1 min" },
-    { step: 5, title: "Réévaluation", description: "Considérez un tabouret à la place", duration: "2 min" }
+    { step: 1, title: "Observation de la chaise", description: "Approchez-vous de la chaise. Ne la quittez pas des yeux.", duration: "1 min" },
+    { step: 2, title: "Tentative d'assise", description: "Pliez les genoux. C'est un mouvement délicat, ne le sous-estimez pas.", duration: "2 min" },
+    { step: 3, title: "Positionnement stratégique", description: "Visez bien. Une erreur de calcul et c'est le sol qui vous accueille.", duration: "2 min" },
+    { step: 4, title: "Réussite", description: "Contact établi ? Félicitations, vous êtes maintenant en position assise. Reposez-vous, vous l'avez bien mérité.", duration: "1 min" },
+    { step: 5, title: "Réévaluation", description: "Si vous échouez, considérez un tabouret à la place", duration: "2 min" }
   ],
 
   // Cours 4 : Faire des noeuds impossibles
